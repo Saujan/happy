@@ -1,9 +1,9 @@
-require 'byebug'
+#require 'byebug'
 class HappyNumberEngine
 	attr_accessor :visited_numbers
 	
 	def initialize
-		@visited_numbers = []
+		@visited_numbers = [] # the container that collects the visited number.
 	end
 
 	def happy_number_minner(num)
