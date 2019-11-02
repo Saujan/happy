@@ -13,24 +13,36 @@
 
 class CuriousNumbers
   def initialize(digit)
-  	@end_number = digit.abs.to_f
+  	@digit = digit.abs
   end
 
   def execute
-  	(0..@end_number).filter do |num|
+  	(lowest_number..highest_number).filter do |num|
   		num if potential_number?(num) && curious_number?(num)
   	end
   end
 
+ 	private 
+
   def potential_number?(a_num)
-  	[0,1,5,6].include?a_num.digits.first
+  	[0,1,5,6].include?a_num.digits[0]
   end
 
   def curious_number?(a_num)
-  	(a_num * a_num).to_s[-a_num.digits.count..-1].to_f == a_num
+  	(a_num**2).to_s[-(a_num.digits.count)..-1].to_i == a_num
+  end
+
+  def lowest_number
+  	lowest = '1'
+  	@digit < 2 && 0 || (@digit - 1).times { lowest+='0'} && lowest.to_i
+  end
+
+  def highest_number
+  	highest = ''
+  	@digit == 0 && 	0 || @digit == 1 && 9 || @digit.times { highest += '9'} && highest.to_i
   end
 end
 
 if __FILE__ == $0
-	print CuriousNumbers.new(1000).execute
+	puts CuriousNumbers.new(1).execute
 end
